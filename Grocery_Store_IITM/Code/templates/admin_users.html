@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block navbar_content %}
+<li class="nav-item">
+<a href="{{ url_for('admin_index') }}" class="btn mt-3">
+  <i class="fas fa-home"></i>
+</a>
+</li>
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center;">Admin-User Dashboard</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>
+            {% if not user.is_admin %}
+              <span class="badge badge-warning">User</a>
+            {% else %}
+              <span class="badge badge-success">Admin</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

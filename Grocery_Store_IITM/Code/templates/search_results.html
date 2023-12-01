@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Search Results for "{{ search_query }}"</h1>
+    {% if products %}
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('product', product_id=product.id) }}">{{ product.name }}</a>
+                    - {{ product.price }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products found matching "{{ search_query }}".</p>
+    {% endif %}
+	
+  <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}

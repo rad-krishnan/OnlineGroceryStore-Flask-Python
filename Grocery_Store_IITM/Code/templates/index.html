@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block navbar_content %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+    </li>
+{% endblock %}
+{% block content %}
+<style>
+    .search-form {
+        display: flex;
+        align-items: center;
+        border: 1px solid #d8d8d8;
+        border-radius: 25px;
+        overflow: hidden; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        background-color: #ffffff;
+    }
+
+    .search-input {
+        flex: 1; 
+        border: none;
+        padding: 10px 20px;
+        outline: none; 
+        font-size: 1rem;
+    }
+
+    .search-btn {
+        background-color: #007bff; 
+        color: #ffffff; 
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; 
+        font-size: 1rem;
+    }
+
+    .search-btn:hover {
+        background-color: #0056b3; 
+    }
+
+</style>
+<h1 style="text-align: center;">Welcome to our grocery store!</h1>
+<div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+    <form class="search-form" method="GET" action="{{ url_for('search') }}">
+        <input class="search-input" type="search" placeholder="Search products" aria-label="Search" name="q">
+        <button class="search-btn" type="submit">Search</button>
+    </form>
+</div>
+
+    {% for category in categories %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('category', category_id=category.id) }}">{{ category.name }}</a>
+                </h5>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

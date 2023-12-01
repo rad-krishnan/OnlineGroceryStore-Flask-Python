@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block navbar_content %}
+<li class="nav-item">
+<a href="{{ url_for('admin_index') }}" class="btn mt-3">
+  <i class="fas fa-home"></i>
+</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    h1{
+        text-align: center;
+        color: #007bff;
+    }
+
+    .add-btn-container {
+        text-align: right; 
+        margin-bottom: 20px;
+    }
+
+    .btn-add {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-add:hover {
+        background-color: #0056b3;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .icon-btn {
+        border: none;
+        background: none;
+        color: inherit;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .icon-btn:hover .fa-edit {
+        color: #f0db4f;
+    }
+
+    .icon-btn:hover .fa-trash-alt {
+        color: #e74c3c;
+    }
+</style>
+
+<h1><strong> Category: </strong> {{ category.name }}</h1>
+
+<h2>Products</h2>
+
+<div class="add-btn-container">
+    <a href="{{ url_for('add_product', category_id=category.id) }}" class="btn btn-add">Add New Product</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Available Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in category.products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <a href="{{ url_for('edit_product', category_id=category.id, product_id=product.id) }}" class="icon-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="icon-btn">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

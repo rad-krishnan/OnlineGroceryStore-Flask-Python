@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block navbar_content %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i></a>
+    </li>
+{% endblock %}
+
+{% block content %}
+<style>
+    .product-quantity-container {
+        display: inline-block;
+        font-size: 0.9rem;
+        padding: 2px 8px;
+        border-radius: 12px;
+        background-color: #e7f2ff; 
+        border: 1px solid #007bff; 
+    }
+</style>
+
+    <h1 style="text-align: center;">{{ category.name }}</h1>
+    {% for product in category.products %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('product', product_id=product.id) }}">{{ product.name }}</a>
+                </h5>
+                <p class="card-text">
+                    Available: <span class="alert product-quantity-container"> {{ product.quantity }} </span>
+                </p>                
+                <p class="card-text">
+                   <strong> <bold>Price:</bold> </strong>  ₹  {{ product.price }}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
